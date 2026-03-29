@@ -1,4 +1,4 @@
-content = """# Incident Response Playbook
+content =Incident Response Playbook
 
 This project is an organized incident response playbook aimed at helping teams handle security incidents efficiently. It outlines step-by-step procedures for common scenarios like phishing, malware, and data breaches. The goal is to ensure compliance with company policies and reduce response time.
 
