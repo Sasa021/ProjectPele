@@ -1,5 +1,3 @@
-# Create a professional README.md for P.E.L.E Project
-
 readme_content = """# P.E.L.E Project
 ### Incident Response Framework (GRC-Aligned)
 
