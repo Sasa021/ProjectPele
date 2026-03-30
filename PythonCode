@@ -1,0 +1,40 @@
+class IncidentResponseFramework:
+    def __init__(self):
+        self.soc_analysis = []
+        self.grc_analysis = []
+        self.incidents = []
+
+    # Simulating SOC analysis step (e.g., detecting a threat)
+    def perform_soc_analysis(self, incident_data):
+        print("Performing SOC analysis...")
+        # Placeholder for SIEM or threat detection logic
+        self.soc_analysis.append(f"SOC analysis on: {incident_data}")
+
+    # Simulating GRC analysis step (e.g., checking compliance)
+    def perform_grc_analysis(self, incident_data):
+        print("Performing GRC analysis...")
+        # Placeholder for compliance checks or risk assessment
+        self.grc_analysis.append(f"GRC analysis on: {incident_data}")
+
+    # Full incident handling, combining SOC & GRC
+    def handle_incident(self, incident_data):
+        print(f"Handling incident: {incident_data}")
+        self.perform_soc_analysis(incident_data)
+        self.perform_grc_analysis(incident_data)
+        self.incidents.append(incident_data)
+        print("Incident handled with both SOC and GRC analysis.")
+
+    # Example report
+    def generate_report(self):
+        print("\n--- Incident Response Report ---")
+        for incident in self.incidents:
+            print(f"Incident: {incident}")
+            print(f"  SOC: {self.soc_analysis.pop(0)}")
+            print(f"  GRC: {self.grc_analysis.pop(0)}")
+        print("--- End of Report ---\n")
+
+# Example usage
+framework = IncidentResponseFramework()
+framework.handle_incident("Unauthorized access attempt")
+framework.handle_incident("Data integrity issue")
+framework.generate_report()
