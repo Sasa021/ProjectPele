@@ -1,4 +1,4 @@
-readme_content = """# P.E.L.E Project  
+
 ![GRC](https://img.shields.io/badge/Focus-GRC-blue) ![SOC](https://img.shields.io/badge/Focus-SOC-green) ![License](https://img.shields.io/badge/License-Educational-lightgrey)
 
 ### Incident Response & Analysis Framework  
