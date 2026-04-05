@@ -67,7 +67,7 @@
 
 ---
 
-## 🤝 Contribution
+$$ 🤝 Contribution
 We welcome contributions from both SOC and GRC professionals to enhance the framework.
 
 ---
