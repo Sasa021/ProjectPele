@@ -78,6 +78,5 @@ This project is for educational and organizational use.
 ---
 
 ## 📌 Author
-Developed for The **P.E.L.E Project**
+Developed for The  P.E.L.E Project
 by Mosa Mofokeng 
-"""
