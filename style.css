@@ -1,0 +1,16 @@
+body {
+    font-family: Arial;
+    background-color: #0f172a;
+    color: white;
+    text-align: center;
+}
+
+.menu a {
+    margin: 10px;
+    color: #38bdf8;
+    text-decoration: none;
+}
+
+section {
+    margin-top: 40px;
+}
