@@ -1,34 +1,475 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>P.E.L.E Project</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P.E.L.E — Proactive SOC + GRC Framework</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<style>
+  :root {
+    --sidebar: #1e2822;
+    --sidebar-active: #2d3d32;
+    --green-dark: #1a5c3a;
+    --green-mid: #2d9e6b;
+    --green-light: #4cbe8a;
+    --green-pale: #e0f2ea;
+    --charcoal: #2b2f2b;
+    --charcoal-light: #3c413c;
+    --white: #ffffff;
+    --bg: #f0f4f1;
+    --card: #ffffff;
+    --text-primary: #1a1f1a;
+    --text-secondary: #5a6b5a;
+    --text-muted: #8fa08f;
+    --border: #e0eae0;
+  }
+ 
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    display: flex;
+    min-height: 100vh;
+  }
+ 
+  /* SIDEBAR */
+  .sidebar {
+    width: 240px; min-width: 240px;
+    background: var(--sidebar);
+    display: flex; flex-direction: column;
+    padding: 28px 0;
+    position: fixed; top: 0; left: 0; bottom: 0;
+    z-index: 10; overflow-y: auto;
+  }
+ 
+  .profile {
+    display: flex; flex-direction: column; align-items: center;
+    padding: 0 20px 24px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+ 
+  .avatar-wrap {
+    width: 72px; height: 72px; border-radius: 50%;
+    border: 2.5px solid var(--green-mid); overflow: hidden;
+    margin-bottom: 12px; background: var(--green-dark);
+    display: flex; align-items: center; justify-content: center;
+  }
+ 
+  .profile-name { font-size: 15px; font-weight: 600; color: #fff; text-align: center; }
+  .profile-role { font-size: 11px; color: var(--green-light); text-align: center; margin-top: 3px; letter-spacing: 0.4px; }
+ 
+  .nav { flex: 1; padding: 16px 0; }
+ 
+  .nav-section {
+    font-size: 9px; letter-spacing: 2px; color: rgba(255,255,255,0.25);
+    padding: 12px 24px 5px; text-transform: uppercase;
+  }
+ 
+  .nav-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 11px 24px; font-size: 13px;
+    color: rgba(255,255,255,0.55); cursor: pointer;
+    transition: all 0.15s; letter-spacing: 0.3px;
+    border-left: 3px solid transparent;
+  }
+ 
+  .nav-item i { font-size: 18px; }
+  .nav-item:hover { color: #fff; background: rgba(255,255,255,0.05); }
+  .nav-item.active { color: #fff; background: var(--sidebar-active); border-left-color: var(--green-light); padding-left: 21px; }
+ 
+  .sidebar-footer {
+    padding: 20px 20px 0;
+    border-top: 1px solid rgba(255,255,255,0.07);
+  }
+ 
+  .active-users-label {
+    font-size: 10px; letter-spacing: 1.5px;
+    color: var(--green-light); text-transform: uppercase; margin-bottom: 10px;
+  }
+ 
+  .avatar-stack { display: flex; align-items: center; }
+ 
+  .mini-av {
+    width: 28px; height: 28px; border-radius: 50%;
+    border: 2px solid var(--sidebar); margin-left: -6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 600; color: #fff;
+  }
+ 
+  .mini-av:first-child { margin-left: 0; }
+ 
+  .av-count {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--green-mid); border: 2px solid var(--sidebar);
+    margin-left: -6px; display: flex; align-items: center;
+    justify-content: center; font-size: 9px; font-weight: 700; color: #fff;
+  }
+ 
+  .world-map { margin-top: 14px; opacity: 0.25; width: 100%; }
+ 
+  /* MAIN */
+  .main { margin-left: 240px; flex: 1; padding: 28px; min-height: 100vh; }
+ 
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 22px;
+  }
+ 
+  .page-title { font-size: 20px; font-weight: 600; color: var(--text-primary); }
+  .page-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+ 
+  .status-pill {
+    display: flex; align-items: center; gap: 6px;
+    background: var(--green-pale); border-radius: 20px;
+    padding: 6px 14px; font-size: 12px; font-weight: 500; color: var(--green-dark);
+  }
+ 
+  .pulse {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--green-mid);
+    animation: pulse 2s ease-in-out infinite;
+  }
+ 
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+ 
+  /* STAT CARDS */
+  .stat-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-bottom: 18px; }
+ 
+  .stat-card {
+    border-radius: 14px; padding: 18px 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    position: relative; overflow: hidden;
+  }
+ 
+  .sc1 { background: var(--green-dark); }
+  .sc2 { background: var(--charcoal); }
+  .sc3 { background: var(--green-mid); }
+ 
+  .sc-label { font-size: 11px; color: rgba(255,255,255,0.6); letter-spacing: 0.5px; margin-bottom: 5px; }
+  .sc-val { font-family: 'Space Mono', monospace; font-size: 26px; font-weight: 700; color: #fff; line-height: 1; }
+  .sc-delta { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 5px; }
+ 
+  .sc-icon {
+    width: 50px; height: 50px; background: rgba(255,255,255,0.1);
+    border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+ 
+  .sc-icon i { font-size: 24px; color: rgba(255,255,255,0.8); }
+  .sc-bg { position:absolute; right:-10px; top:-10px; width:80px; height:80px; border-radius:50%; background:rgba(255,255,255,0.04); }
+ 
+  /* GRID ROWS */
+  .row { display: grid; gap: 14px; margin-bottom: 18px; }
+  .row-32 { grid-template-columns: 1.5fr 1fr; }
+  .row-half { grid-template-columns: 1fr 1fr; }
+ 
+  /* CARD */
+  .card { background: var(--card); border-radius: 14px; padding: 20px; border: 1px solid var(--border); }
+ 
+  .card-hdr { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; }
+  .card-title { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+  .card-sub-text { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+ 
+  .badge {
+    font-size: 10px; padding: 3px 10px; border-radius: 20px;
+    font-weight: 500; background: var(--green-pale); color: var(--green-dark); white-space: nowrap;
+  }
+ 
+  /* ALERT TABLE */
+  .atbl { width: 100%; border-collapse: collapse; }
+  .atbl th { font-size: 10px; letter-spacing: 1px; color: var(--text-muted); text-transform: uppercase; text-align: left; padding: 0 0 10px; border-bottom: 1px solid var(--border); font-weight: 500; }
+  .atbl td { padding: 11px 0; border-bottom: 1px solid var(--border); font-size: 13px; vertical-align: middle; }
+  .atbl tr:last-child td { border-bottom: none; }
+ 
+  .sev { display:inline-block; font-size:9px; font-weight:700; padding:3px 8px; border-radius:4px; font-family:'Space Mono',monospace; letter-spacing:0.5px; }
+  .s-crit { background:#fde8e8; color:#9b1c1c; }
+  .s-high { background:#fef3c7; color:#92400e; }
+  .s-med { background:var(--green-pale); color:var(--green-dark); }
+ 
+  .a-name { color:var(--text-primary); }
+  .a-time { font-family:'Space Mono',monospace; font-size:11px; color:var(--text-muted); }
+  .a-src { font-size:12px; color:var(--text-muted); }
+ 
+  /* COMPLIANCE */
+  .comp-item { margin-bottom: 13px; }
+  .comp-item:last-child { margin-bottom: 0; }
+  .comp-hdr { display:flex; justify-content:space-between; font-size:12px; margin-bottom:5px; }
+  .comp-label { color:var(--text-secondary); }
+  .comp-pct { font-family:'Space Mono',monospace; font-weight:700; color:var(--text-primary); }
+  .bar-track { height:6px; background:var(--green-pale); border-radius:3px; overflow:hidden; }
+  .bar-fill { height:100%; border-radius:3px; transition:width 1s cubic-bezier(0.4,0,0.2,1); }
+  .f1{background:var(--green-dark)} .f2{background:var(--green-mid)} .f3{background:var(--green-light)} .f4{background:#7dcba8}
+ 
+  /* RISK */
+  .risk-row { display:flex; align-items:center; gap:10px; padding:9px 0; border-bottom:1px solid var(--border); font-size:13px; }
+  .risk-row:last-child { border-bottom:none; }
+  .r-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+  .dr{background:#e24b4a} .da{background:#f5a623} .dg{background:var(--green-mid)}
+  .r-name { flex:1; color:var(--text-primary); }
+  .r-score { font-family:'Space Mono',monospace; font-size:12px; color:var(--text-muted); }
+ 
+  /* DONUT */
+  .donut-wrap { display:flex; align-items:center; justify-content:center; gap:20px; }
+  .donut-legend { display:flex; flex-direction:column; gap:8px; }
+  .leg-item { display:flex; align-items:center; gap:8px; font-size:12px; color:var(--text-secondary); }
+  .leg-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+ 
+  /* BAR CHART */
+  .bar-chart { display:flex; align-items:flex-end; gap:8px; height:90px; margin-top:8px; }
+  .bar-grp { display:flex; flex-direction:column; align-items:center; gap:4px; flex:1; }
+  .bars { display:flex; gap:3px; align-items:flex-end; height:70px; }
+  .bc { width:9px; border-radius:3px 3px 0 0; }
+  .ba{background:var(--green-dark)} .bb{background:var(--green-light)}
+  .b-mo { font-size:10px; color:var(--text-muted); }
+ 
+  /* IR */
+  .ir-phases { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:14px; }
+  .ir-phase { background:var(--green-pale); border-radius:10px; padding:13px 8px; text-align:center; cursor:pointer; border:1.5px solid transparent; transition:all 0.15s; }
+  .ir-phase:hover,.ir-phase.active { border-color:var(--green-mid); background:#fff; box-shadow:0 2px 12px rgba(45,158,107,0.12); }
+  .ir-phase i { font-size:20px; color:var(--green-dark); display:block; margin-bottom:5px; }
+  .ir-num { font-size:9px; color:var(--text-muted); font-family:'Space Mono',monospace; margin-bottom:2px; }
+  .ir-name { font-size:11px; font-weight:600; color:var(--text-primary); text-transform:uppercase; letter-spacing:0.5px; }
+ 
+  /* CHECKLIST */
+  .chk { display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid var(--border); font-size:13px; cursor:pointer; }
+  .chk:last-child { border-bottom:none; }
+  .chk.done { color:var(--text-muted); text-decoration:line-through; }
+  .chk-circle { width:18px; height:18px; border-radius:50%; border:1.5px solid var(--border); display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:all 0.15s; }
+  .chk.done .chk-circle { background:var(--green-mid); border-color:var(--green-mid); }
+  .chk-circle i { font-size:10px; color:#fff; display:none; }
+  .chk.done .chk-circle i { display:block; }
+ 
+  /* ABOUT */
+  .about-text { font-size:12px; color:var(--text-secondary); line-height:1.7; margin-bottom:12px; }
+  .tag-row { display:flex; gap:6px; flex-wrap:wrap; }
+ 
+  ::-webkit-scrollbar { width:5px; }
+  ::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
+</style>
 </head>
 <body>
-
-<h1>P.E.L.E Project</h1>
-<p>Proactive SOC + GRC Incident Response Framework</p>
-
-<div class="menu">
-    <a href="#soc">SOC Analysis</a>
-    <a href="#grc">GRC Analysis</a>
-    <a href="#ir">Incident Response</a>
-</div>
-
-<section id="soc">
-    <h2>SOC Analysis</h2>
-    <p>Real-time monitoring using SIEM tools.</p>
-</section>
-
-<section id="grc">
-    <h2>GRC Analysis</h2>
-    <p>Risk, compliance, and governance alignment.</p>
-</section>
-
-<section id="ir">
-    <h2>Incident Response</h2>
-    <p>Preparation → Detection → Containment → Recovery</p>
-</section>
-
+ 
+<aside class="sidebar">
+  <div class="profile">
+    <div class="avatar-wrap">
+      <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+        <circle cx="28" cy="20" r="10" fill="#4cbe8a"/>
+        <path d="M8 52c0-11.046 8.954-20 20-20s20 8.954 20 20" fill="#2d9e6b"/>
+      </svg>
+    </div>
+    <div class="profile-name">MOSA</div>
+    <div class="profile-role">SOC Analyst · GRC · Policy</div>
+  </div>
+ 
+  <nav class="nav">
+    <div class="nav-section">Main</div>
+    <div class="nav-item active" onclick="setNav(this)"><i class="ti ti-layout-dashboard"></i>Dashboard</div>
+    <div class="nav-item" onclick="setNav(this)"><i class="ti ti-radar"></i>SOC Analysis</div>
+    <div class="nav-item" onclick="setNav(this)"><i class="ti ti-file-certificate"></i>GRC Compliance</div>
+    <div class="nav-item" onclick="setNav(this)"><i class="ti ti-first-aid-kit"></i>Incident Response</div>
+    <div class="nav-section">Insights</div>
+    <div class="nav-item" onclick="setNav(this)"><i class="ti ti-chart-bar"></i>Statistics</div>
+    <div class="nav-item" onclick="setNav(this)"><i class="ti ti-settings"></i>Settings</div>
+  </nav>
+ 
+  <div class="sidebar-footer">
+    <div class="active-users-label">Active Analysts</div>
+    <div class="avatar-stack">
+      <div class="mini-av" style="background:#1a5c3a">M</div>
+      <div class="mini-av" style="background:#2d9e6b">T</div>
+      <div class="mini-av" style="background:#3c413c">A</div>
+      <div class="mini-av" style="background:#4cbe8a">R</div>
+      <div class="av-count">+4</div>
+    </div>
+    <svg class="world-map" viewBox="0 0 180 80">
+      <g fill="none" stroke="#4cbe8a" stroke-width="0.6">
+        <circle cx="38" cy="40" r="2.5" fill="#4cbe8a"/>
+        <circle cx="88" cy="32" r="2.5" fill="#4cbe8a"/>
+        <circle cx="128" cy="44" r="2.5" fill="#4cbe8a"/>
+        <circle cx="65" cy="54" r="1.8" fill="#4cbe8a"/>
+        <circle cx="150" cy="36" r="1.8" fill="#4cbe8a"/>
+        <path d="M38 40 Q62 18 88 32" stroke-dasharray="3 2"/>
+        <path d="M88 32 Q108 22 128 44" stroke-dasharray="3 2"/>
+        <path d="M38 40 Q52 50 65 54" stroke-dasharray="3 2"/>
+        <path d="M128 44 Q140 38 150 36" stroke-dasharray="3 2"/>
+      </g>
+    </svg>
+  </div>
+</aside>
+ 
+<main class="main">
+  <div class="topbar">
+    <div>
+      <div class="page-title">P.E.L.E Project</div>
+      <div class="page-sub">Proactive SOC + GRC Incident Response Framework</div>
+    </div>
+    <div class="status-pill"><div class="pulse"></div>All systems nominal</div>
+  </div>
+ 
+  <!-- STAT CARDS -->
+  <div class="stat-cards">
+    <div class="stat-card sc1">
+      <div><div class="sc-label">Active Alerts</div><div class="sc-val">7</div><div class="sc-delta">↑ 2 since last shift</div></div>
+      <div class="sc-icon"><i class="ti ti-alert-triangle"></i></div>
+      <div class="sc-bg"></div>
+    </div>
+    <div class="stat-card sc2">
+      <div><div class="sc-label">Compliance Score</div><div class="sc-val">87%</div><div class="sc-delta">↑ 3% vs last quarter</div></div>
+      <div class="sc-icon"><i class="ti ti-shield-check"></i></div>
+      <div class="sc-bg"></div>
+    </div>
+    <div class="stat-card sc3">
+      <div><div class="sc-label">Mean Time to Respond</div><div class="sc-val">14m</div><div class="sc-delta">Target: &lt;10 min</div></div>
+      <div class="sc-icon"><i class="ti ti-clock"></i></div>
+      <div class="sc-bg"></div>
+    </div>
+  </div>
+ 
+  <!-- ROW 1 -->
+  <div class="row row-32">
+    <div class="card">
+      <div class="card-hdr">
+        <div><div class="card-title">Live Alert Queue</div><div class="card-sub-text">SIEM · real-time monitoring</div></div>
+        <span class="badge">LIVE</span>
+      </div>
+      <table class="atbl">
+        <thead><tr><th>Severity</th><th>Alert</th><th>Source</th><th>Time</th></tr></thead>
+        <tbody>
+          <tr><td><span class="sev s-crit">CRITICAL</span></td><td class="a-name">Lateral movement — 192.168.1.42</td><td class="a-src">Endpoint</td><td class="a-time">09:14</td></tr>
+          <tr><td><span class="sev s-high">HIGH</span></td><td class="a-name">Privilege escalation — svc_admin</td><td class="a-src">IAM</td><td class="a-time">08:57</td></tr>
+          <tr><td><span class="sev s-high">HIGH</span></td><td class="a-name">Anomalous outbound — 4.3 GB exfil</td><td class="a-src">Network</td><td class="a-time">08:33</td></tr>
+          <tr><td><span class="sev s-med">MEDIUM</span></td><td class="a-name">Brute force — SSH threshold exceeded</td><td class="a-src">Firewall</td><td class="a-time">07:50</td></tr>
+          <tr><td><span class="sev s-med">MEDIUM</span></td><td class="a-name">USB storage — HR workstation</td><td class="a-src">DLP</td><td class="a-time">07:22</td></tr>
+        </tbody>
+      </table>
+    </div>
+ 
+    <div class="card">
+      <div class="card-hdr"><div><div class="card-title">GRC Compliance</div><div class="card-sub-text">Framework alignment</div></div></div>
+      <div class="comp-item"><div class="comp-hdr"><span class="comp-label">ISO 27001</span><span class="comp-pct">91%</span></div><div class="bar-track"><div class="bar-fill f1" style="width:91%"></div></div></div>
+      <div class="comp-item"><div class="comp-hdr"><span class="comp-label">NIST CSF</span><span class="comp-pct">83%</span></div><div class="bar-track"><div class="bar-fill f2" style="width:83%"></div></div></div>
+      <div class="comp-item"><div class="comp-hdr"><span class="comp-label">POPIA</span><span class="comp-pct">76%</span></div><div class="bar-track"><div class="bar-fill f3" style="width:76%"></div></div></div>
+      <div class="comp-item"><div class="comp-hdr"><span class="comp-label">CIS Controls v8</span><span class="comp-pct">69%</span></div><div class="bar-track"><div class="bar-fill f4" style="width:69%"></div></div></div>
+      <div style="margin-top:16px"><div class="card-title" style="font-size:13px;margin-bottom:10px">Risk Register</div>
+        <div class="risk-row"><span class="r-dot dr"></span><span class="r-name">Third-party vendor access</span><span class="r-score">8.4</span></div>
+        <div class="risk-row"><span class="r-dot dr"></span><span class="r-name">Unpatched legacy systems</span><span class="r-score">7.9</span></div>
+        <div class="risk-row"><span class="r-dot da"></span><span class="r-name">Insider threat exposure</span><span class="r-score">6.1</span></div>
+        <div class="risk-row"><span class="r-dot dg"></span><span class="r-name">Physical access controls</span><span class="r-score">2.3</span></div>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- ROW 2 -->
+  <div class="row row-half">
+    <div class="card">
+      <div class="card-hdr"><div><div class="card-title">Threat Distribution</div><div class="card-sub-text">By MITRE ATT&CK tactic</div></div></div>
+      <div class="donut-wrap">
+        <svg width="110" height="110" viewBox="0 0 110 110">
+          <circle cx="55" cy="55" r="40" fill="none" stroke="#e0f2ea" stroke-width="18"/>
+          <circle cx="55" cy="55" r="40" fill="none" stroke="#1a5c3a" stroke-width="18" stroke-dasharray="100 152" stroke-dashoffset="0" stroke-linecap="round"/>
+          <circle cx="55" cy="55" r="40" fill="none" stroke="#2d9e6b" stroke-width="18" stroke-dasharray="60 192" stroke-dashoffset="-100" stroke-linecap="round"/>
+          <circle cx="55" cy="55" r="40" fill="none" stroke="#4cbe8a" stroke-width="18" stroke-dasharray="40 212" stroke-dashoffset="-160" stroke-linecap="round"/>
+          <circle cx="55" cy="55" r="40" fill="none" stroke="#7dcba8" stroke-width="18" stroke-dasharray="28 224" stroke-dashoffset="-200" stroke-linecap="round"/>
+          <text x="55" y="51" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1f1a" font-family="Space Mono,monospace">7</text>
+          <text x="55" y="64" text-anchor="middle" font-size="9" fill="#8fa08f" font-family="DM Sans,sans-serif">Alerts</text>
+        </svg>
+        <div class="donut-legend">
+          <div class="leg-item"><div class="leg-dot" style="background:#1a5c3a"></div>Initial Access (40%)</div>
+          <div class="leg-item"><div class="leg-dot" style="background:#2d9e6b"></div>Execution (24%)</div>
+          <div class="leg-item"><div class="leg-dot" style="background:#4cbe8a"></div>Lateral Move (16%)</div>
+          <div class="leg-item"><div class="leg-dot" style="background:#7dcba8"></div>Exfiltration (11%)</div>
+          <div class="leg-item"><div class="leg-dot" style="background:#e0f2ea"></div>Other (9%)</div>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="card">
+      <div class="card-hdr">
+        <div><div class="card-title">Alert Volume</div><div class="card-sub-text">Monthly trend · 6 months</div></div>
+        <div style="display:flex;gap:8px;font-size:11px;color:var(--text-muted);align-items:center">
+          <span style="display:flex;gap:4px;align-items:center"><span style="width:8px;height:8px;background:var(--green-dark);border-radius:2px;display:inline-block"></span>Detected</span>
+          <span style="display:flex;gap:4px;align-items:center"><span style="width:8px;height:8px;background:var(--green-light);border-radius:2px;display:inline-block"></span>Resolved</span>
+        </div>
+      </div>
+      <div class="bar-chart">
+        <div class="bar-grp"><div class="bars"><div class="bc ba" style="height:55px"></div><div class="bc bb" style="height:48px"></div></div><span class="b-mo">Jan</span></div>
+        <div class="bar-grp"><div class="bars"><div class="bc ba" style="height:65px"></div><div class="bc bb" style="height:60px"></div></div><span class="b-mo">Feb</span></div>
+        <div class="bar-grp"><div class="bars"><div class="bc ba" style="height:45px"></div><div class="bc bb" style="height:42px"></div></div><span class="b-mo">Mar</span></div>
+        <div class="bar-grp"><div class="bars"><div class="bc ba" style="height:72px"></div><div class="bc bb" style="height:65px"></div></div><span class="b-mo">Apr</span></div>
+        <div class="bar-grp"><div class="bars"><div class="bc ba" style="height:58px"></div><div class="bc bb" style="height:52px"></div></div><span class="b-mo">May</span></div>
+        <div class="bar-grp"><div class="bars"><div class="bc ba" style="height:78px"></div><div class="bc bb" style="height:70px"></div></div><span class="b-mo">Jun</span></div>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- ROW 3 -->
+  <div class="row row-32">
+    <div class="card">
+      <div class="card-hdr"><div><div class="card-title">Incident Response Phases</div><div class="card-sub-text">Select a phase to view checklist</div></div></div>
+      <div class="ir-phases">
+        <div class="ir-phase active" onclick="selectPhase(0,this)"><i class="ti ti-settings"></i><div class="ir-num">01</div><div class="ir-name">Prep</div></div>
+        <div class="ir-phase" onclick="selectPhase(1,this)"><i class="ti ti-eye"></i><div class="ir-num">02</div><div class="ir-name">Detect</div></div>
+        <div class="ir-phase" onclick="selectPhase(2,this)"><i class="ti ti-lock"></i><div class="ir-num">03</div><div class="ir-name">Contain</div></div>
+        <div class="ir-phase" onclick="selectPhase(3,this)"><i class="ti ti-heart-rate-monitor"></i><div class="ir-num">04</div><div class="ir-name">Recover</div></div>
+      </div>
+      <div id="checklist"></div>
+    </div>
+ 
+    <div class="card">
+      <div class="card-hdr"><div><div class="card-title">Upcoming Obligations</div><div class="card-sub-text">Compliance calendar</div></div></div>
+      <div class="risk-row"><span class="sev s-crit" style="font-size:9px;white-space:nowrap">14 days</span><span class="r-name" style="margin-left:8px">ISO 27001 surveillance audit</span></div>
+      <div class="risk-row"><span class="sev s-high" style="font-size:9px;white-space:nowrap">32 days</span><span class="r-name" style="margin-left:8px">POPIA breach notification drill</span></div>
+      <div class="risk-row"><span class="sev s-med" style="font-size:9px;white-space:nowrap">60 days</span><span class="r-name" style="margin-left:8px">Quarterly vendor risk reviews</span></div>
+ 
+      <div style="margin-top:18px">
+        <div class="card-title" style="font-size:13px;margin-bottom:10px">About the Author</div>
+        <div class="about-text">Microsoft Certified Security Operations Analyst with experience across cybersecurity, GRC, policy, and strategic communications. Currently studying Political Science and Industrial Psychology at UWC. Based in Cape Town, South Africa.</div>
+        <div class="tag-row">
+          <span class="badge">MWR CyberSec</span>
+          <span class="badge">UWC</span>
+          <span class="badge">Y20 G20</span>
+          <span class="badge">Silulo Foundation</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+ 
+<script>
+const phases = [
+  { items:[{t:"IRP documented and version-controlled",done:true},{t:"SIEM playbooks reviewed and updated",done:true},{t:"On-call rota and escalation matrix confirmed",done:true},{t:"Tabletop exercise completed this quarter",done:false},{t:"Threat intelligence feeds integrated",done:false}] },
+  { items:[{t:"Alert triaged and severity assigned",done:false},{t:"IOCs extracted and cross-referenced",done:false},{t:"Affected assets and blast radius identified",done:false},{t:"Initial stakeholder notification sent",done:false},{t:"Evidence preserved — log capture initiated",done:false}] },
+  { items:[{t:"Short-term containment applied (network isolation)",done:false},{t:"Compromised credentials rotated",done:false},{t:"Forensic image captured before remediation",done:false},{t:"Long-term containment strategy approved",done:false},{t:"Communication to affected teams dispatched",done:false}] },
+  { items:[{t:"Systems restored from verified clean backup",done:false},{t:"Patch or fix validated in staging",done:false},{t:"Monitoring intensified post-restoration",done:false},{t:"Post-incident review scheduled",done:false},{t:"Lessons learned documented in ITSM",done:false}] }
+];
+ 
+let cur = 0;
+let states = phases.map(p => p.items.map(i => i.done));
+ 
+function render() {
+  document.getElementById('checklist').innerHTML = states[cur].map((done,i) =>
+    `<div class="chk${done?' done':''}" onclick="toggle(${i})">
+      <div class="chk-circle"><i class="ti ti-check"></i></div>
+      <span>${phases[cur].items[i].t}</span>
+    </div>`
+  ).join('');
+}
+ 
+function toggle(i) { states[cur][i] = !states[cur][i]; render(); }
+ 
+function selectPhase(n, el) {
+  document.querySelectorAll('.ir-phase').forEach(e => e.classList.remove('active'));
+  el.classList.add('active'); cur = n; render();
+}
+ 
+function setNav(el) {
+  document.querySelectorAll('.nav-item').forEach(e => e.classList.remove('active'));
+  el.classList.add('active');
+}
+ 
+render();
+</script>
 </body>
 </html>
