@@ -24,7 +24,7 @@
 
 > **Most teams wait for the breach. P.E.L.E makes sure you're already three steps ahead.**
 
-A brutally practical, open-source incident response framework that fuses **SOC monitoring**, **GRC compliance**, and **structured IR** into one unified operational posture. Built for security teams that can't afford to be reactive.
+A brutally practical, open-source incident response framework that fuses **SOC monitoring**, **GRC compliance**, and **structured IR** into one unified operational posture. Built for security teams that can't afford to be reactive. it is built with the human resource in mind and ensures that all security parameters around softwares used by employees are constantly monitored and if items like weak passwords, compromised credentials occur the employee can solve it with the help of project Pele. Cyber Resilience is the main goal as we know "Prevention is better than the cure"
 
 ---
 
