@@ -24,9 +24,9 @@
     --text-muted: #8fa08f;
     --border: #e0eae0;
   }
- 
+
   * { box-sizing: border-box; margin: 0; padding: 0; }
- 
+
   body {
     font-family: 'DM Sans', sans-serif;
     background: var(--bg);
@@ -34,7 +34,7 @@
     display: flex;
     min-height: 100vh;
   }
- 
+
   /* SIDEBAR */
   .sidebar {
     width: 240px; min-width: 240px;
@@ -44,30 +44,30 @@
     position: fixed; top: 0; left: 0; bottom: 0;
     z-index: 10; overflow-y: auto;
   }
- 
+
   .profile {
     display: flex; flex-direction: column; align-items: center;
     padding: 0 20px 24px;
     border-bottom: 1px solid rgba(255,255,255,0.07);
   }
- 
+
   .avatar-wrap {
     width: 72px; height: 72px; border-radius: 50%;
     border: 2.5px solid var(--green-mid); overflow: hidden;
     margin-bottom: 12px; background: var(--green-dark);
     display: flex; align-items: center; justify-content: center;
   }
- 
+
   .profile-name { font-size: 15px; font-weight: 600; color: #fff; text-align: center; }
   .profile-role { font-size: 11px; color: var(--green-light); text-align: center; margin-top: 3px; letter-spacing: 0.4px; }
- 
+
   .nav { flex: 1; padding: 16px 0; }
- 
+
   .nav-section {
     font-size: 9px; letter-spacing: 2px; color: rgba(255,255,255,0.25);
     padding: 12px 24px 5px; text-transform: uppercase;
   }
- 
+
   .nav-item {
     display: flex; align-items: center; gap: 12px;
     padding: 11px 24px; font-size: 13px;
@@ -75,123 +75,123 @@
     transition: all 0.15s; letter-spacing: 0.3px;
     border-left: 3px solid transparent;
   }
- 
+
   .nav-item i { font-size: 18px; }
   .nav-item:hover { color: #fff; background: rgba(255,255,255,0.05); }
   .nav-item.active { color: #fff; background: var(--sidebar-active); border-left-color: var(--green-light); padding-left: 21px; }
- 
+
   .sidebar-footer {
     padding: 20px 20px 0;
     border-top: 1px solid rgba(255,255,255,0.07);
   }
- 
+
   .active-users-label {
     font-size: 10px; letter-spacing: 1.5px;
     color: var(--green-light); text-transform: uppercase; margin-bottom: 10px;
   }
- 
+
   .avatar-stack { display: flex; align-items: center; }
- 
+
   .mini-av {
     width: 28px; height: 28px; border-radius: 50%;
     border: 2px solid var(--sidebar); margin-left: -6px;
     display: flex; align-items: center; justify-content: center;
     font-size: 10px; font-weight: 600; color: #fff;
   }
- 
+
   .mini-av:first-child { margin-left: 0; }
- 
+
   .av-count {
     width: 28px; height: 28px; border-radius: 50%;
     background: var(--green-mid); border: 2px solid var(--sidebar);
     margin-left: -6px; display: flex; align-items: center;
     justify-content: center; font-size: 9px; font-weight: 700; color: #fff;
   }
- 
+
   .world-map { margin-top: 14px; opacity: 0.25; width: 100%; }
- 
+
   /* MAIN */
   .main { margin-left: 240px; flex: 1; padding: 28px; min-height: 100vh; }
- 
+
   .topbar {
     display: flex; align-items: center; justify-content: space-between;
     margin-bottom: 22px;
   }
- 
+
   .page-title { font-size: 20px; font-weight: 600; color: var(--text-primary); }
   .page-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
- 
+
   .status-pill {
     display: flex; align-items: center; gap: 6px;
     background: var(--green-pale); border-radius: 20px;
     padding: 6px 14px; font-size: 12px; font-weight: 500; color: var(--green-dark);
   }
- 
+
   .pulse {
     width: 7px; height: 7px; border-radius: 50%;
     background: var(--green-mid);
     animation: pulse 2s ease-in-out infinite;
   }
- 
+
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
- 
+
   /* STAT CARDS */
   .stat-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-bottom: 18px; }
- 
+
   .stat-card {
     border-radius: 14px; padding: 18px 20px;
     display: flex; align-items: center; justify-content: space-between;
     position: relative; overflow: hidden;
   }
- 
+
   .sc1 { background: var(--green-dark); }
   .sc2 { background: var(--charcoal); }
   .sc3 { background: var(--green-mid); }
- 
+
   .sc-label { font-size: 11px; color: rgba(255,255,255,0.6); letter-spacing: 0.5px; margin-bottom: 5px; }
   .sc-val { font-family: 'Space Mono', monospace; font-size: 26px; font-weight: 700; color: #fff; line-height: 1; }
   .sc-delta { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 5px; }
- 
+
   .sc-icon {
     width: 50px; height: 50px; background: rgba(255,255,255,0.1);
     border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   }
- 
+
   .sc-icon i { font-size: 24px; color: rgba(255,255,255,0.8); }
   .sc-bg { position:absolute; right:-10px; top:-10px; width:80px; height:80px; border-radius:50%; background:rgba(255,255,255,0.04); }
- 
+
   /* GRID ROWS */
   .row { display: grid; gap: 14px; margin-bottom: 18px; }
   .row-32 { grid-template-columns: 1.5fr 1fr; }
   .row-half { grid-template-columns: 1fr 1fr; }
- 
+
   /* CARD */
   .card { background: var(--card); border-radius: 14px; padding: 20px; border: 1px solid var(--border); }
- 
+
   .card-hdr { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; }
   .card-title { font-size: 14px; font-weight: 600; color: var(--text-primary); }
   .card-sub-text { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
- 
+
   .badge {
     font-size: 10px; padding: 3px 10px; border-radius: 20px;
     font-weight: 500; background: var(--green-pale); color: var(--green-dark); white-space: nowrap;
   }
- 
+
   /* ALERT TABLE */
   .atbl { width: 100%; border-collapse: collapse; }
   .atbl th { font-size: 10px; letter-spacing: 1px; color: var(--text-muted); text-transform: uppercase; text-align: left; padding: 0 0 10px; border-bottom: 1px solid var(--border); font-weight: 500; }
   .atbl td { padding: 11px 0; border-bottom: 1px solid var(--border); font-size: 13px; vertical-align: middle; }
   .atbl tr:last-child td { border-bottom: none; }
- 
+
   .sev { display:inline-block; font-size:9px; font-weight:700; padding:3px 8px; border-radius:4px; font-family:'Space Mono',monospace; letter-spacing:0.5px; }
   .s-crit { background:#fde8e8; color:#9b1c1c; }
   .s-high { background:#fef3c7; color:#92400e; }
   .s-med { background:var(--green-pale); color:var(--green-dark); }
- 
+
   .a-name { color:var(--text-primary); }
   .a-time { font-family:'Space Mono',monospace; font-size:11px; color:var(--text-muted); }
   .a-src { font-size:12px; color:var(--text-muted); }
- 
+
   /* COMPLIANCE */
   .comp-item { margin-bottom: 13px; }
   .comp-item:last-child { margin-bottom: 0; }
@@ -201,7 +201,7 @@
   .bar-track { height:6px; background:var(--green-pale); border-radius:3px; overflow:hidden; }
   .bar-fill { height:100%; border-radius:3px; transition:width 1s cubic-bezier(0.4,0,0.2,1); }
   .f1{background:var(--green-dark)} .f2{background:var(--green-mid)} .f3{background:var(--green-light)} .f4{background:#7dcba8}
- 
+
   /* RISK */
   .risk-row { display:flex; align-items:center; gap:10px; padding:9px 0; border-bottom:1px solid var(--border); font-size:13px; }
   .risk-row:last-child { border-bottom:none; }
@@ -209,13 +209,13 @@
   .dr{background:#e24b4a} .da{background:#f5a623} .dg{background:var(--green-mid)}
   .r-name { flex:1; color:var(--text-primary); }
   .r-score { font-family:'Space Mono',monospace; font-size:12px; color:var(--text-muted); }
- 
+
   /* DONUT */
   .donut-wrap { display:flex; align-items:center; justify-content:center; gap:20px; }
   .donut-legend { display:flex; flex-direction:column; gap:8px; }
   .leg-item { display:flex; align-items:center; gap:8px; font-size:12px; color:var(--text-secondary); }
   .leg-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
- 
+
   /* BAR CHART */
   .bar-chart { display:flex; align-items:flex-end; gap:8px; height:90px; margin-top:8px; }
   .bar-grp { display:flex; flex-direction:column; align-items:center; gap:4px; flex:1; }
@@ -223,7 +223,7 @@
   .bc { width:9px; border-radius:3px 3px 0 0; }
   .ba{background:var(--green-dark)} .bb{background:var(--green-light)}
   .b-mo { font-size:10px; color:var(--text-muted); }
- 
+
   /* IR */
   .ir-phases { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:14px; }
   .ir-phase { background:var(--green-pale); border-radius:10px; padding:13px 8px; text-align:center; cursor:pointer; border:1.5px solid transparent; transition:all 0.15s; }
@@ -231,7 +231,7 @@
   .ir-phase i { font-size:20px; color:var(--green-dark); display:block; margin-bottom:5px; }
   .ir-num { font-size:9px; color:var(--text-muted); font-family:'Space Mono',monospace; margin-bottom:2px; }
   .ir-name { font-size:11px; font-weight:600; color:var(--text-primary); text-transform:uppercase; letter-spacing:0.5px; }
- 
+
   /* CHECKLIST */
   .chk { display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid var(--border); font-size:13px; cursor:pointer; }
   .chk:last-child { border-bottom:none; }
@@ -240,17 +240,17 @@
   .chk.done .chk-circle { background:var(--green-mid); border-color:var(--green-mid); }
   .chk-circle i { font-size:10px; color:#fff; display:none; }
   .chk.done .chk-circle i { display:block; }
- 
+
   /* ABOUT */
   .about-text { font-size:12px; color:var(--text-secondary); line-height:1.7; margin-bottom:12px; }
   .tag-row { display:flex; gap:6px; flex-wrap:wrap; }
- 
+
   ::-webkit-scrollbar { width:5px; }
   ::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
 </style>
 </head>
 <body>
- 
+
 <aside class="sidebar">
   <div class="profile">
     <div class="avatar-wrap">
@@ -262,7 +262,7 @@
     <div class="profile-name">MOSA</div>
     <div class="profile-role">SOC Analyst · GRC · Policy</div>
   </div>
- 
+
   <nav class="nav">
     <div class="nav-section">Main</div>
     <div class="nav-item active" onclick="setNav(this)"><i class="ti ti-layout-dashboard"></i>Dashboard</div>
@@ -273,7 +273,7 @@
     <div class="nav-item" onclick="setNav(this)"><i class="ti ti-chart-bar"></i>Statistics</div>
     <div class="nav-item" onclick="setNav(this)"><i class="ti ti-settings"></i>Settings</div>
   </nav>
- 
+
   <div class="sidebar-footer">
     <div class="active-users-label">Active Analysts</div>
     <div class="avatar-stack">
@@ -298,7 +298,7 @@
     </svg>
   </div>
 </aside>
- 
+
 <main class="main">
   <div class="topbar">
     <div>
@@ -307,7 +307,7 @@
     </div>
     <div class="status-pill"><div class="pulse"></div>All systems nominal</div>
   </div>
- 
+
   <!-- STAT CARDS -->
   <div class="stat-cards">
     <div class="stat-card sc1">
@@ -326,7 +326,7 @@
       <div class="sc-bg"></div>
     </div>
   </div>
- 
+
   <!-- ROW 1 -->
   <div class="row row-32">
     <div class="card">
@@ -345,7 +345,7 @@
         </tbody>
       </table>
     </div>
- 
+
     <div class="card">
       <div class="card-hdr"><div><div class="card-title">GRC Compliance</div><div class="card-sub-text">Framework alignment</div></div></div>
       <div class="comp-item"><div class="comp-hdr"><span class="comp-label">ISO 27001</span><span class="comp-pct">91%</span></div><div class="bar-track"><div class="bar-fill f1" style="width:91%"></div></div></div>
@@ -360,7 +360,7 @@
       </div>
     </div>
   </div>
- 
+
   <!-- ROW 2 -->
   <div class="row row-half">
     <div class="card">
@@ -384,7 +384,7 @@
         </div>
       </div>
     </div>
- 
+
     <div class="card">
       <div class="card-hdr">
         <div><div class="card-title">Alert Volume</div><div class="card-sub-text">Monthly trend · 6 months</div></div>
@@ -403,7 +403,7 @@
       </div>
     </div>
   </div>
- 
+
   <!-- ROW 3 -->
   <div class="row row-32">
     <div class="card">
@@ -416,13 +416,13 @@
       </div>
       <div id="checklist"></div>
     </div>
- 
+
     <div class="card">
       <div class="card-hdr"><div><div class="card-title">Upcoming Obligations</div><div class="card-sub-text">Compliance calendar</div></div></div>
       <div class="risk-row"><span class="sev s-crit" style="font-size:9px;white-space:nowrap">14 days</span><span class="r-name" style="margin-left:8px">ISO 27001 surveillance audit</span></div>
       <div class="risk-row"><span class="sev s-high" style="font-size:9px;white-space:nowrap">32 days</span><span class="r-name" style="margin-left:8px">POPIA breach notification drill</span></div>
       <div class="risk-row"><span class="sev s-med" style="font-size:9px;white-space:nowrap">60 days</span><span class="r-name" style="margin-left:8px">Quarterly vendor risk reviews</span></div>
- 
+
       <div style="margin-top:18px">
         <div class="card-title" style="font-size:13px;margin-bottom:10px">About the Author</div>
         <div class="about-text">Microsoft Certified Security Operations Analyst with experience across cybersecurity, GRC, policy, and strategic communications. Currently studying Political Science and Industrial Psychology at UWC. Based in Cape Town, South Africa.</div>
@@ -436,7 +436,7 @@
     </div>
   </div>
 </main>
- 
+
 <script>
 const phases = [
   { items:[{t:"IRP documented and version-controlled",done:true},{t:"SIEM playbooks reviewed and updated",done:true},{t:"On-call rota and escalation matrix confirmed",done:true},{t:"Tabletop exercise completed this quarter",done:false},{t:"Threat intelligence feeds integrated",done:false}] },
@@ -444,10 +444,10 @@ const phases = [
   { items:[{t:"Short-term containment applied (network isolation)",done:false},{t:"Compromised credentials rotated",done:false},{t:"Forensic image captured before remediation",done:false},{t:"Long-term containment strategy approved",done:false},{t:"Communication to affected teams dispatched",done:false}] },
   { items:[{t:"Systems restored from verified clean backup",done:false},{t:"Patch or fix validated in staging",done:false},{t:"Monitoring intensified post-restoration",done:false},{t:"Post-incident review scheduled",done:false},{t:"Lessons learned documented in ITSM",done:false}] }
 ];
- 
+
 let cur = 0;
 let states = phases.map(p => p.items.map(i => i.done));
- 
+
 function render() {
   document.getElementById('checklist').innerHTML = states[cur].map((done,i) =>
     `<div class="chk${done?' done':''}" onclick="toggle(${i})">
@@ -456,19 +456,19 @@ function render() {
     </div>`
   ).join('');
 }
- 
+
 function toggle(i) { states[cur][i] = !states[cur][i]; render(); }
- 
+
 function selectPhase(n, el) {
   document.querySelectorAll('.ir-phase').forEach(e => e.classList.remove('active'));
   el.classList.add('active'); cur = n; render();
 }
- 
+
 function setNav(el) {
   document.querySelectorAll('.nav-item').forEach(e => e.classList.remove('active'));
   el.classList.add('active');
 }
- 
+
 render();
 </script>
 </body>
