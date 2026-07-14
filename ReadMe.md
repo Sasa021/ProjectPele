@@ -1,7 +1,7 @@
 
 
 ### Incident Response & Analysis Framework  
-**TRIAS** delivers a comprehensive incident response framework merging Security Operations Center (SOC) analysis with Governance, Risk, and Control (GRC) compliance.
+**TRIAS** delivers a comprehensive incident response framework merging Security Operations Center (SOC) analysis, Governance, Risk, and Control (GRC) compliance and incident response into one unified platform managed by one administrator where all members of the security team can collaborate and pass on tasks to others whilst also doing thier respective work all in one system.
 
 ---
 
