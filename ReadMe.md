@@ -1,5 +1,4 @@
 
-![GRC](https://img.shields.io/badge/Focus-GRC-blue) ![SOC](https://img.shields.io/badge/Focus-SOC-green) ![License](https://img.shields.io/badge/License-Educational-lightgrey)
 
 ### Incident Response & Analysis Framework  
 **TRIAS** delivers a comprehensive incident response framework merging Security Operations Center (SOC) analysis with Governance, Risk, and Control (GRC) compliance.
@@ -28,7 +27,7 @@
 
 ---
 
-## ⚙️ Incident Response Lifecycle
+## Incident Response Lifecycle
 
 1. **Preparation**  
    - Deploy SIEM solutions  
