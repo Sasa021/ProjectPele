@@ -78,5 +78,6 @@ This project is for educational and organizational use.
 ---
 
 ## Author
-Developed for teams/organizations/companies
-by Mosa Mofokeng 
+Mosa Mofokeng is ISC2 member with a CC certification and a Microsoft/Nemisa SC-200 certification. A young individual with the love for Cybersecurity and constant innovation.
+
+Developed for teams/organizations/companies.
