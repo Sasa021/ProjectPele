@@ -25,7 +25,7 @@
 - Control frameworks (preventive, detective, corrective)  
 - Incident reporting aligned with regulatory requirements
 
-## Incident Response 
+### Incident Response 
 
 1. **Preparation**  
    - Deploy SIEM solutions  
