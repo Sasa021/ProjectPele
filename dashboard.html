@@ -285,7 +285,7 @@
     <div class="nav-section">Main</div>
     <div class="nav-item active" onclick="setNav(this)"><i class="ti ti-layout-dashboard"></i>Dashboard</div>
     <div class="nav-item" onclick="setNav(this)"><i class="ti ti-radar"></i>SOC Analysis</div>
-    <div class="nav-item" onclick="setNav(this)"><i class="ti ti-file-certificate"></i>GRC Compliance</div>
+    <a class="nav-item" href="grc.html"><i class="ti ti-file-certificate"></i>GRC Compliance</a>
     <a class="nav-item" href="ir.html"><i class="ti ti-first-aid-kit"></i>Incident Response</a>
     <div class="nav-section">Insights</div>
     <div class="nav-item" onclick="setNav(this)"><i class="ti ti-chart-bar"></i>Statistics</div>
@@ -515,6 +515,19 @@ function setNav(el) {
 }
 
 render();
+
+// Sync GRC compliance score from grc.html via localStorage
+function syncGRCStats() {
+  try {
+    var gd = JSON.parse(localStorage.getItem('trias_grc_dashboard') || '{}');
+    if (gd.compliance !== undefined) {
+      var compEl = document.querySelector('.comp-pct');
+      if (compEl && compEl.id === 'dash-compliance') compEl.textContent = gd.compliance + '%';
+    }
+  } catch(e) {}
+}
+syncGRCStats();
+setInterval(syncGRCStats, 10000);
 </script>
 </body>
 </html>
